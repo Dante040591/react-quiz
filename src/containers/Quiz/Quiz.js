@@ -5,7 +5,7 @@ import ActiveQuiz from '../../components/ActiveQuiz/ActiveQuiz';
 class Quiz extends Component {
   state = {
     activeQuestion: 0,
-    answerState: null,
+    answerState: null, //есть ли какой то ответ?
     quiz: [
       {
         question: 'Какого цвета небо?',
@@ -33,6 +33,13 @@ class Quiz extends Component {
   };
 
   onAnswerClickHandler = (answerId) => {
+    if(this.state.answerState) {
+      const key = Object.keys(this.state.answerState)[0]; //{[answerId]: 'success или error'}
+      if(this.state.answerState[key] ===  'success') {
+        return;
+      }
+    }
+
      const question = this.state.quiz[this.state.activeQuestion];
 
      if(question.rightAnswerId === answerId) {
