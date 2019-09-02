@@ -2,21 +2,36 @@ import React from 'react';
 import classes from './FinishedQuiz.css';
 
 const FinishedQuiz = (props) => {
+  const successCount = Object.keys(props.results).reduce((total, current) => {
+    if (props.results[current] === 'success') {
+      total++;
+    }
+
+    return total;
+  }, 0);
+
   return (
     <div className={classes.FinishedQuiz}>
       <ul>
-        <li>
-          <strong>1.</strong> How are You <i className={'fa fa-times ' + classes.error}></i>
-        </li>
-        <li>
-          <strong>2.</strong> How are You <i className={'fa fa-check ' + classes.success}></i>
-        </li>
+        {props.quiz.map((quizItem, index) => {
+          const cls = [
+            'fa',
+            props.results[quizItem.id] === 'error' ? 'fa-times' : 'fa-check',
+            classes[props.results[quizItem.id]]
+          ];
+
+          return (
+            <li key={index}>
+              <strong>{index + 1}.</strong> {quizItem.question} <i className={cls.join(' ')}></i>
+            </li>
+          );
+        })}
       </ul>
 
-      <p>Правильно 4 из 10</p>
+      <p>Правильно {successCount} из {props.quiz.length}</p>
 
       <div>
-        <button>Повторить</button>
+        <button onClick={props.onReplay}>Повторить</button>
       </div>
     </div>
   )
