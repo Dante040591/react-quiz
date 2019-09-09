@@ -15,11 +15,11 @@
     outline: none;
 }
 
-.Button.active {
+.Button:active {
     box-shadow: inset 2px 2px 1px rgba(0,0,0,0.3);
 }
 
-.Button.disabled {
+.Button:disabled {
     color: #000;
     background: #ccc;
     cursor: not-allowed;
